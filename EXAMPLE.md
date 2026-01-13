@@ -428,3 +428,59 @@ ZumuTranslator.TranslationConfig(
     tripId: trip.id
 )
 ```
+
+## Industry Use Cases
+
+### Rideshare Apps
+
+```swift
+// Uber/Lyft-style apps
+ZumuTranslatorButton(
+    config: ZumuTranslator.TranslationConfig(
+        driverName: driver.name,
+        driverLanguage: driver.preferredLanguage,
+        passengerName: passenger.name,
+        passengerLanguage: nil, // Auto-detect
+        tripId: ride.id,
+        pickupLocation: ride.pickup,
+        dropoffLocation: ride.dropoff,
+        externalDriverId: driver.externalId,
+        memberId: passenger.memberId
+    ),
+    apiKey: apiKey
+)
+```
+
+### Delivery Apps
+
+```swift
+// DoorDash/UberEats-style apps
+ZumuTranslatorButton(
+    config: ZumuTranslator.TranslationConfig(
+        driverName: courier.name,
+        driverLanguage: courier.language,
+        passengerName: customer.name,
+        passengerLanguage: customer.language,
+        tripId: delivery.id,
+        pickupLocation: restaurant.address,
+        dropoffLocation: customer.address
+    ),
+    apiKey: apiKey
+)
+```
+
+### Hospitality Apps
+
+```swift
+// Hotel/Resort staff communication
+ZumuTranslatorButton(
+    config: ZumuTranslator.TranslationConfig(
+        driverName: staffMember.name,
+        driverLanguage: "English", // Staff language
+        passengerName: guest.name,
+        passengerLanguage: nil, // Auto-detect guest language
+        tripId: request.id
+    ),
+    apiKey: apiKey
+)
+```

@@ -11,7 +11,7 @@
 
 ## Overview
 
-A lightweight, drop-in SwiftUI component that adds real-time AI translation to your iOS app. Built with LiveKit for enterprise-grade voice-to-voice translation between drivers and passengers in rideshare applications.
+A lightweight, drop-in SwiftUI component that adds real-time AI translation to your iOS app. Perfect for rideshare, delivery, hospitality, and any application requiring instant multilingual communication.
 
 **Key Features:**
 - 🚀 **Drag & Drop Installation** - No package manager needed
@@ -27,14 +27,14 @@ A lightweight, drop-in SwiftUI component that adds real-time AI translation to y
 - **iOS**: 17.0+
 - **Xcode**: 15.0+
 - **Swift**: 5.9+
-- **Dependencies**: LiveKit Swift SDK (17.0.0+) and LiveKit Components
+- **Dependencies**: WebRTC framework and supporting libraries
 - **API**: Zumu API key ([Get one here](https://translator.zumu.ai))
 
 ## Installation
 
-### Step 1: Install LiveKit Dependencies
+### Step 1: Install Required Dependencies
 
-Since this SDK uses drag-and-drop installation (not Swift Package Manager), you'll need to manually install LiveKit dependencies first.
+The SDK requires WebRTC framework for real-time audio communication.
 
 **Using CocoaPods:**
 
@@ -50,11 +50,11 @@ Then run:
 pod install
 ```
 
-**Or using Swift Package Manager for LiveKit only:**
+**Or using Swift Package Manager:**
 
 1. In Xcode: File → Add Package Dependencies
-2. Add LiveKit: `https://github.com/livekit/client-sdk-swift`
-3. Add LiveKitComponents: `https://github.com/livekit/components-swift`
+2. Add: `https://github.com/livekit/client-sdk-swift`
+3. Add: `https://github.com/livekit/components-swift`
 
 ### Step 2: Add the SDK to Your Project
 
@@ -230,7 +230,7 @@ The button displays different states with visual feedback:
 Each state has a unique animated gradient and visualization:
 - **Listening**: Waveform visualizer showing audio input
 - **Thinking**: Pulsating dot animation
-- **Speaking**: Waveform showing agent's speech output
+- **Speaking**: Waveform showing translated speech output
 
 ## Features
 
@@ -291,9 +291,9 @@ public init(
 
 ## Troubleshooting
 
-### "No such module 'LiveKit'" Build Error
+### "No such module" Build Error
 
-**Solution**: Ensure LiveKit SDK is properly installed via CocoaPods or Swift Package Manager before adding the button SDK.
+**Solution**: Ensure WebRTC dependencies are properly installed via CocoaPods or Swift Package Manager before adding the button SDK.
 
 ### Microphone Not Working
 
@@ -311,7 +311,7 @@ public init(
 
 ### Waveform Not Animating
 
-**Expected Behavior**: Brief delay (100-200ms) before waveform starts due to audio track publishing async. This is normal and doesn't affect functionality.
+**Expected Behavior**: Brief delay (100-200ms) before waveform starts due to audio track initialization. This is normal and doesn't affect functionality.
 
 ### Connection Fails
 
@@ -337,14 +337,14 @@ The SDK consists of 4 main files:
 
 1. **ZumuTranslatorButton.swift**: Main button component with UI and state management
 2. **Models.swift**: Data models and configuration types
-3. **ZumuTokenSource.swift**: API client for LiveKit token generation
+3. **ZumuTokenSource.swift**: API client for session token generation
 4. **Helpers.swift**: Utility views (LanguageIconView, etc.)
 
 ### Design Principles
 
 - **SwiftUI-First**: Native SwiftUI with Combine for reactivity
 - **Observable Pattern**: @StateObject for lifecycle management
-- **Delegate Pattern**: LiveKit RoomDelegate for event handling
+- **Delegate Pattern**: Real-time event handling
 - **State Machine**: Clear state transitions (inactive → connecting → active)
 - **Async/Await**: Modern Swift concurrency throughout
 
@@ -359,7 +359,7 @@ The SDK consists of 4 main files:
 ## Security
 
 - **API Key**: Stored in memory only, never persisted
-- **Encryption**: All LiveKit communication is encrypted
+- **Encryption**: All communication is encrypted end-to-end
 - **Privacy**: No data retention beyond session
 - **Permissions**: Microphone access required and requested
 
