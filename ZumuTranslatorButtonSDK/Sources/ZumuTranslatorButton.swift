@@ -694,6 +694,15 @@ class ButtonViewModel: NSObject, ObservableObject, RoomDelegate {
                 if lastAgentState != currentAgentState {
                     let previousState = lastAgentState.map { "\($0)" } ?? "nil"
                     print("🤖 Button: Agent state changed from \(previousState) to \(currentAgentState as Any)")
+
+                    // Agent left the room (state went from known → nil) — server deleted room
+                    if lastAgentState != nil && currentAgentState == nil {
+                        print("🔌 Button: Agent left room — auto-disconnecting")
+                        lastAgentState = currentAgentState
+                        await disconnect()
+                        break
+                    }
+
                     lastAgentState = currentAgentState
                 }
 
@@ -717,7 +726,6 @@ class ButtonViewModel: NSObject, ObservableObject, RoomDelegate {
                         self.state = .translating
                     }
                 default:
-                    // Handle initializing or any other agent states
                     break
                 }
 
